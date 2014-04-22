@@ -37,7 +37,7 @@ a:hover {
 }
 
 .nav {
-    margin-top: 75%;
+    margin-top: 30%;
 }
 
 #logo{
@@ -69,8 +69,9 @@ a:hover {
 
 .link a span {
     float: left;
-    width: 45%;
+    width: 100%;
     text-align: left;
+    padding-left: 10%;
 }
 
 .pages {

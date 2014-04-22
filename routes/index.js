@@ -6,9 +6,12 @@ var Group = require('../models/group');
 module.exports = function(app, server) {
 
     app.get('/', function(req, res) {
-        res.render('index.html', {
-            title: 'Wildfire',
-            groups: Group.find({})
+        
+        Group.find({}, function(err, groups) {
+            res.render('index.html', {
+                title: 'Wildfire',
+                groups: groups
+            });
         });
     });
 
@@ -19,14 +22,15 @@ module.exports = function(app, server) {
     app.get('/:id', function(req, res) {
         var group_id = req.param('id');
 
-        var groups = Group.find({});
-        var messages = Message.find({'group': group_id});
-        
-        res.render('group.html', {
-            title: 'Wildfire',
-            groups: groups,
-            messages: messages,
-            id: group_id
+        Group.find({}, function(err, groups) {
+            Message.find({'group': group_id}, function(err, messages) {
+                res.render('group.html', {
+                    title: 'Wildfire',
+                    groups: groups,
+                    messages: messages,
+                    id: group_id
+                });
+            });
         });
     });
 }

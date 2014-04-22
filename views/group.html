@@ -17,7 +17,7 @@
                 <div class="nav">
                 {% for group in groups %}
                     <div class="link green_hover" data-color="green">
-                        <a href="/{{group.id}}"><span>Group {{ group.id }}</span></a>
+                        <a href="/{{group.num}}"><span>{{ group.title }}</span></a>
                     </div>
                 {% endfor %}
                 </div>
@@ -28,13 +28,15 @@
             <div class="pages">
                 <div class="page green">
                     <div class="content">
-                        <header>Group {{ id }}</header>
+                        <header>{{ group.title }}</header>
                         <article>
                             <div class="chat_area">
                                 <div class="messages">
-                                    
+                                    {% for message in messages %}
+                                        <div class="other">{{ message.msg }}</div>
+                                    {% endfor %}
                                 </div>
-                                <form class="interact" data-id="{{ group.id }}">
+                                <form class="interact" data-id="{{ group.num }}">
                                     <input type="text" class="input">
                                     <input type="submit" class="submit" value="Send">
                                 </form>
