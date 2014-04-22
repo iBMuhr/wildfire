@@ -8,11 +8,11 @@ var express = require('express');
 var nunjucks = require('nunjucks');
 var path = require('path');
 var routes = require('./routes');
-var mongoose = require('mongoose');
-var configdb = require('./config/database');
 
 var app = express();
 
+var mongoose = require('mongoose');
+var configdb = require('./config/database');
 mongoose.connect(configdb.url);
 
 nunjucks.configure('views', {

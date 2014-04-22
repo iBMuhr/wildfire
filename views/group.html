@@ -4,16 +4,16 @@
         <meta charset="utf-8">
         <title>{{ title }}</title>
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-        <!--<script src="/socket.io/socket.io.js"></script>
-        <script src="/javascripts/script.js"></script>
-        <script src="/javascripts/socket.js"></script>-->
+        <script src="/socket.io/socket.io.js"></script>
+        <!--<script src="/javascripts/script.js"></script>-->
+        <script src="/js/socket.js"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="sidebar">
-                <img src="/images/logo.png" id="logo" alt="Wildfire">
+                <img src="/img/logo.png" class="logo" alt="Wildfire">
                 <div class="nav">
                 {% for group in groups %}
                     <div class="link green_hover" data-color="green">

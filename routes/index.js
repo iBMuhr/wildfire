@@ -5,18 +5,36 @@ var Group = require('../models/group');
 
 module.exports = function(app, server) {
 
-    app.get('/', function(req, res) {
-        
-        Group.find({}, function(err, groups) {
-            res.render('index.html', {
-                title: 'Wildfire',
-                groups: groups
-            });
-        });
-    });
+    var io = socketio.listen(server);
+    var sockets = [];
 
-    app.get('/new', function(req, res) {
-        
+    io.sockets.on('connection', function(socket) {
+        sockets.push(socket);
+
+        // Message.find(function(err, messages) {
+        //     messages.forEach(function(message) {
+        //       socket.emit('message', message);
+        //     });
+        // });
+
+        socket.on('message', function(messasge) {
+            console.log(messasge.msg);
+            var msg = new Message({'group': messasge.group, 'msg': messasge.msg});
+            msg.save(function(err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+            });
+
+            // sockets.forEach(function(socket) {
+            //     socket.emit('message', msg);
+            // });
+        });
+
+        socket.on('disconnect', function() {
+            sockets.splice(sockets.indexOf(socket), 1);
+        });
     });
 
     app.get('/:id', function(req, res) {
@@ -32,5 +50,18 @@ module.exports = function(app, server) {
                 });
             });
         });
+    });
+
+    app.get('/', function(req, res) {
+        Group.find({}, function(err, groups) {
+            res.render('index.html', {
+                title: 'Wildfire',
+                groups: groups
+            });
+        });
+    });
+
+    app.get('/new', function(req, res) {
+        
     });
 }
