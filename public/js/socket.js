@@ -19,3 +19,8 @@ $(document).ready(function() {
         scrollToBottom();
     });
 });
+
+function scrollToBottom() {
+    var div = $('.messages');
+    div.scrollTop(div.prop("scrollHeight") - div.height());
+}

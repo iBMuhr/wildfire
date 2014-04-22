@@ -17,9 +17,8 @@ module.exports = function(app, server) {
         //     });
         // });
 
-        socket.on('message', function(messasge) {
-            console.log(messasge.msg);
-            var msg = new Message({'group': messasge.group, 'msg': messasge.msg});
+        socket.on('message', function(message) {
+            var msg = new Message({'group': message.group, 'msg': message.msg, 'num': message.num});
             msg.save(function(err) {
                 if (err) {
                     console.error(err);
@@ -27,9 +26,9 @@ module.exports = function(app, server) {
                 }
             });
 
-            // sockets.forEach(function(socket) {
-            //     socket.emit('message', msg);
-            // });
+            sockets.forEach(function(socket) {
+                socket.emit('message', msg);
+            });
         });
 
         socket.on('disconnect', function() {
@@ -41,12 +40,14 @@ module.exports = function(app, server) {
         var group_id = req.param('id');
 
         Group.find({}, function(err, groups) {
-            Message.find({'group': group_id}, function(err, messages) {
-                res.render('group.html', {
-                    title: 'Wildfire',
-                    groups: groups,
-                    messages: messages,
-                    id: group_id
+            Group.findOne({'num': group_id}, function(err, group) {
+                Message.find({'group': group_id}, function(err, messages) {
+                    res.render('group.html', {
+                        title: 'Wildfire',
+                        groups: groups,
+                        messages: messages,
+                        group: group
+                    });
                 });
             });
         });
