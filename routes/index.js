@@ -12,13 +12,13 @@ module.exports = function(app, server) {
         sockets.push(socket);
 
         //
-        // UNCOMMENT TO ADD OLD MESSAGES
+        // COMMENT/UNCOMMENT TO ADD/REMOVE ABILITY TO VIEW OLD MESSAGES
         //
-        // Message.find(function(err, messages) {
-        //     messages.forEach(function(message) {
-        //       socket.emit('message', message);
-        //     });
-        // });
+        Message.find(function(err, messages) {
+            messages.forEach(function(message) {
+              socket.emit('message', message);
+            });
+        });
 
         socket.on('message', function(message) {
             var msg = new Message({'group': message.group, 'msg': message.msg});
