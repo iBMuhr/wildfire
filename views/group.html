@@ -16,14 +16,14 @@
                 <img src="/img/logo.gif" class="logo" alt="Wildfire">
                 <div class="nav">
                 {% for g in groups %}
-                    <div class="link green_hover" data-color="green">
+                    <div class="link orange_hover" data-color="orange">
                         <a href="/{{ g.id }}"><span>{{ g.title }}</span></a>
                     </div>
                 {% endfor %}
                 </div>
 
                 <div class="new_group">
-                    <div class="link green_hover new_group_link" data-color="green">
+                    <div class="link orange_hover new_group_link" data-color="orange">
                         <span><i class="fa fa-plus"></i> New</span>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
             <div style="clear: both"></div>
 
             <div class="pages">
-                <div class="page green">
+                <div class="page orange">
                     <div class="content">
                         <header>{{ group.title }}</header>
                         <article>

@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
 
     socket.on('group', function(group) {
-        $(".nav").append("<div class=\"link green_hover\" data-color=\"green\"><a href=\"/" + group._id + "\"><span>" + group.title + "</span></a></div>");
+        $(".nav").append("<div class=\"link orange_hover\" data-color=\"orange\"><a href=\"/" + group._id + "\"><span>" + group.title + "</span></a></div>");
     });
 });
 
