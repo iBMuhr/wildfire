@@ -15,8 +15,10 @@ $(document).ready(function() {
     });
 
     socket.on('message', function(message) {
-        $(".messages").append("<div class='other'>" + message.msg + "</div>");
-        scrollToBottom();
+        if (message.group == $(".interact").data('id')) {
+            $(".messages").append("<div class='other'>" + message.msg + "</div>");
+            scrollToBottom();
+        }
     });
 
     socket.on('group', function(group) {
