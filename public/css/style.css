@@ -133,7 +133,7 @@ a:hover {
     }
 
     .messages .other, .messages .me {
-        border: 1px solid #95a5a6;
+        border: 1px solid #e67e22;
         clear: both;
         padding: 1%;
         border-radius: 20px;
