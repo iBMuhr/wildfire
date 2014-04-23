@@ -18,6 +18,10 @@ $(document).ready(function() {
         $(".messages").append("<div class='other'>" + message.msg + "</div>");
         scrollToBottom();
     });
+
+    socket.on('group', function(group) {
+        $(".nav").append("<div class=\"link green_hover\" data-color=\"green\"><a href=\"/" + group._id + "\"><span>" + group.title + "</span></a></div>");
+    });
 });
 
 function scrollToBottom() {

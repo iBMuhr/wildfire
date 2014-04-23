@@ -7,21 +7,28 @@
         <link rel="stylesheet" href="/css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/script.js"></script>
         <script src="/js/socket.js"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="sidebar">
-                <img src="/img/logo.png" class="logo" alt="Wildfire">
+                <img src="/img/logo.gif" class="logo" alt="Wildfire">
                 <div class="nav">
                 {% for g in groups %}
                     <div class="link green_hover" data-color="green">
-                        <a href="/{{g.num}}"><span>{{ g.title }}</span></a>
+                        <a href="/{{ g.id }}"><span>{{ g.title }}</span></a>
                     </div>
                 {% endfor %}
                 </div>
-            </div>
 
+                <div class="new_group">
+                    <div class="link green_hover new_group_link" data-color="green">
+                        <span><i class="fa fa-plus"></i> New</span>
+                    </div>
+                </div>
+            </div>
+            
             <div style="clear: both"></div>
 
             <div class="pages">

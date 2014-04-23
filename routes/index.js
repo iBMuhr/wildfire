@@ -11,6 +11,9 @@ module.exports = function(app, server) {
     io.sockets.on('connection', function(socket) {
         sockets.push(socket);
 
+        //
+        // UNCOMMENT TO ADD OLD MESSAGES
+        //
         // Message.find(function(err, messages) {
         //     messages.forEach(function(message) {
         //       socket.emit('message', message);
@@ -18,10 +21,10 @@ module.exports = function(app, server) {
         // });
 
         socket.on('message', function(message) {
-            var msg = new Message({'group': message.group, 'msg': message.msg, 'num': message.num});
+            var msg = new Message({'group': message.group, 'msg': message.msg});
             msg.save(function(err) {
                 if (err) {
-                    console.error(err);
+                    console.log(err);
                     return;
                 }
             });
@@ -31,17 +34,33 @@ module.exports = function(app, server) {
             });
         });
 
+        socket.on('group', function(group) {
+            var grp = new Group({'title': group.title});
+            grp.save(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                sockets.forEach(function(socket) {
+                    socket.emit('group', grp);
+                });
+            });
+        });
+
         socket.on('disconnect', function() {
             sockets.splice(sockets.indexOf(socket), 1);
         });
     });
 
-    app.get('/:id', function(req, res) {
-        var group_id = req.param('id');
+    app.get('/test/:id', function(req, res) {
+        Group.findById(req.param('id'), function(err, group) {
+            console.log(group.title);
+        })
+    });
 
+    app.get('/:id', function(req, res) {
         Group.find({}, function(err, groups) {
-            Group.findOne({'num': group_id}, function(err, group) {
-                Message.find({'group': group_id}, function(err, messages) {
+            Group.findById(req.param('id'), function(err, group) {
+                Message.find({'group': req.param('id')}, function(err, messages) {
                     res.render('group.html', {
                         title: 'Wildfire',
                         groups: groups,
@@ -60,9 +79,5 @@ module.exports = function(app, server) {
                 groups: groups
             });
         });
-    });
-
-    app.get('/new', function(req, res) {
-        
     });
 }
