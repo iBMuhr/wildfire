@@ -11,15 +11,6 @@ module.exports = function(app, server) {
     io.sockets.on('connection', function(socket) {
         sockets.push(socket);
 
-        //
-        // COMMENT/UNCOMMENT TO ADD/REMOVE ABILITY TO VIEW OLD MESSAGES
-        //
-        Message.find(function(err, messages) {
-            messages.forEach(function(message) {
-              socket.emit('message', message);
-            });
-        });
-
         socket.on('message', function(message) {
             var msg = new Message({'group': message.group, 'msg': message.msg});
             msg.save(function(err) {
@@ -27,10 +18,9 @@ module.exports = function(app, server) {
                     console.log(err);
                     return;
                 }
-            });
-
-            sockets.forEach(function(socket) {
-                socket.emit('message', msg);
+                sockets.forEach(function(socket) {
+                    socket.emit('message', msg);
+                });
             });
         });
 
@@ -51,10 +41,13 @@ module.exports = function(app, server) {
         });
     });
 
-    app.get('/test/:id', function(req, res) {
-        Group.findById(req.param('id'), function(err, group) {
-            console.log(group.title);
-        })
+    app.get('/', function(req, res) {
+        Group.find({}, function(err, groups) {
+            res.render('index.html', {
+                title: 'Wildfire',
+                groups: groups
+            });
+        });
     });
 
     app.get('/:id', function(req, res) {
@@ -68,15 +61,6 @@ module.exports = function(app, server) {
                         group: group
                     });
                 });
-            });
-        });
-    });
-
-    app.get('/', function(req, res) {
-        Group.find({}, function(err, groups) {
-            res.render('index.html', {
-                title: 'Wildfire',
-                groups: groups
             });
         });
     });
