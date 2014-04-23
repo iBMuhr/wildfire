@@ -20,17 +20,15 @@ nunjucks.configure('views', {
     express: app
 });
 
-app.configure(function() {
-    app.set('port', process.env.PORT || 3000);
-    app.use(express.logger('dev'));
-    app.set('views', path.join(__dirname, 'views'));
-    app.use(express.cookieParser('KITTENS'));
-    app.use(express.json());
-    app.use(express.urlencoded());
-    app.use(express.session({ secret: 'MORE KITTENS' }));
-    app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));
-});
+app.set('port', process.env.PORT || 80);
+app.use(express.logger('dev'));
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.cookieParser('KITTENS'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.session({ secret: 'MORE KITTENS' }));
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
 
 var server = http.createServer(app);
 
