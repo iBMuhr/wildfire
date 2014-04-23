@@ -13,10 +13,10 @@
     <body>
         <div class="wrapper">
             <div class="sidebar">
-                <img src="/img/logo.gif" class="logo" alt="Wildfire">
+                <a href="/"><img src="/img/logo.gif" class="logo" alt="Wildfire"></a>
                 <div class="nav">
                 {% for group in groups %}
-                    <div class="link orange_hover" data-color="orange">
+                    <div class="link orange_hover" data-color="orange" data-id="{{ group.id }}">
                         <a href="/{{ group.id }}"><span>{{ group.title }}</span></a>
                     </div>
                 {% endfor %}

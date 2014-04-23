@@ -58,7 +58,8 @@ module.exports = function(app, server) {
                         title: 'Wildfire',
                         groups: groups,
                         messages: messages,
-                        group: group
+                        group: group,
+                        group_id: req.param('id')
                     });
                 });
             });
