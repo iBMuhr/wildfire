@@ -17,7 +17,6 @@ $(document).ready(function() {
     socket.on('message', function(message) {
         if (message.group == $(".interact").data('id')) {
             $("<div class='other'></div>").text(message.msg).appendTo(".messages");
-            //$(".messages").append("<div class='other'>" + document.createTextNode(message.msg) + "</div>");
             scrollToBottom();
         }
     });
