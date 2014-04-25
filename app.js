@@ -20,7 +20,7 @@ nunjucks.configure('views', {
     express: app
 });
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
 app.use(express.logger('dev'));
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.cookieParser('KITTENS'));
